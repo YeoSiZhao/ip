@@ -11,13 +11,13 @@ public class Task {
         return (isDone ? "X" : " "); // mark done task with X
     }
     public String getDescription() {
-        return this.description;
+        return description;
     }
     public void setIsDone() {
-        this.isDone = true;
+        isDone = true;
     }
     public void setIsNotDone() {
-        this.isDone = false;
+        isDone = false;
     }
 }
 
