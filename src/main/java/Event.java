@@ -1,0 +1,22 @@
+public class Event extends Task{
+
+    private String from;
+    private String to;
+
+    public Event(String eventDescription, String from, String to) {
+        super(eventDescription);
+        this.from = from;
+        this.to = to;
+
+    }
+
+    @Override
+    public String toString() {
+        return String.format("[%s][%s] %s (from: %s to %s)",
+                getType(), getIsDone(), description, from, to);
+    }
+
+    protected String getType() {
+        return "E";
+    }
+}
