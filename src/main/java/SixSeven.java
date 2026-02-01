@@ -27,11 +27,6 @@ public class SixSeven {
             case "todo":
                 tasks[taskCount] = new Todo(description);
                 printDescription();
-
-//                System.out.println("Got it. I've added this task:");
-//                System.out.println(" " + tasks[taskCount]);
-//                taskCount++;
-//                System.out.println("Now you have " + taskCount + " tasks in the list.");
                 break;
             case "deadline":
                 int byIdx = description.indexOf("/by");
@@ -41,10 +36,6 @@ public class SixSeven {
 
                 tasks[taskCount] = new Deadline(deadlineDescription,by);
                 printDescription();
-//                System.out.println("Got it. I've added this task:");
-//                System.out.println(" " + tasks[taskCount]);
-//                taskCount++;
-//                System.out.println("Now you have " + taskCount + " tasks in the list.");
 
                 break;
             case "event":
@@ -57,10 +48,6 @@ public class SixSeven {
 
                 tasks[taskCount] = new Event(eventDescription,from,to);
                 printDescription();
-//                System.out.println("Got it. I've added this task:");
-//                System.out.println(" " + tasks[taskCount]);
-//                taskCount++;
-//                System.out.println("Now you have " + taskCount + " tasks in the list.");
                 break;
             case "list":
                 listTask();
