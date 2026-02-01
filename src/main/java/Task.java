@@ -22,12 +22,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return String.format("[%s][%s] %s",
-                getType(), getIsDone(), description);
-    }
-
-    protected String getType() {
-        return " ";
+        return String.format("[T][%s] %s", getIsDone(), description);
     }
 }
 

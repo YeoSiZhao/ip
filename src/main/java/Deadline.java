@@ -8,11 +8,6 @@ public class Deadline extends Task{
 
     @Override
     public String toString() {
-        return String.format("[%s][%s] %s(by: %s)",
-                getType(), getIsDone(), description, by);
-    }
-
-    protected String getType() {
-        return "D";
+        return String.format("[D][%s] %s(by: %s)", getIsDone(), description, by);
     }
 }
