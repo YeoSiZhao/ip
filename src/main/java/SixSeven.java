@@ -2,7 +2,8 @@ import java.util.Scanner;
 
 public class SixSeven {
 
-    private static Task[] tasks = new Task[100];
+    public static final int MAX_TASK = 100;
+    private static final Task[] tasks = new Task[MAX_TASK];
     private static int taskCount = 0;
 
     public static void main(String[] args) {
