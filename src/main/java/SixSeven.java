@@ -3,12 +3,12 @@ import java.util.Scanner;
 public class SixSeven {
 
     public static final int MAX_TASK = 100;
+    public static final String BOT_NAME = "SixSeven";
     private static final Task[] tasks = new Task[MAX_TASK];
     private static int taskCount = 0;
 
     public static void main(String[] args) {
-        String name = "SixSeven";
-        System.out.println("Hello! I'm " + name);
+        System.out.println("Hello! I'm " + BOT_NAME);
         System.out.println("What can I do for you?");
 
         Scanner scanner = new Scanner(System.in);
@@ -16,7 +16,7 @@ public class SixSeven {
             String line;
             line = scanner.nextLine();
 
-            String[] input = line.split(" ",2);
+            String[] input = line.split(" ", 2);
             String command = input[0];
             String description = input.length > 1 ? input[1] : "";
 
@@ -32,10 +32,10 @@ public class SixSeven {
             case "deadline":
                 int byIdx = description.indexOf("/by");
 
-                String by = description.substring(byIdx+4).trim();
-                String deadlineDescription = description.substring(0,byIdx);
+                String by = description.substring(byIdx + 4).trim();
+                String deadlineDescription = description.substring(0, byIdx);
 
-                tasks[taskCount] = new Deadline(deadlineDescription,by);
+                tasks[taskCount] = new Deadline(deadlineDescription, by);
                 printDescription();
 
                 break;
@@ -43,11 +43,11 @@ public class SixSeven {
                 int fromIdx = description.indexOf("/from");
                 int toIdx = description.indexOf("/to");
 
-                String eventDescription = description.substring(0,fromIdx).trim();
-                String from = description.substring(fromIdx+6,toIdx).trim();
-                String to = description.substring(toIdx+4).trim();
+                String eventDescription = description.substring(0, fromIdx).trim();
+                String from = description.substring(fromIdx + 6, toIdx).trim();
+                String to = description.substring(toIdx + 4).trim();
 
-                tasks[taskCount] = new Event(eventDescription,from,to);
+                tasks[taskCount] = new Event(eventDescription, from, to);
                 printDescription();
                 break;
             case "list":
@@ -73,21 +73,23 @@ public class SixSeven {
         } else {
             System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < taskCount; i++) {
-                System.out.println(i+1 + "." + tasks[i]);
+                System.out.println(i + 1 + "." + tasks[i]);
             }
         }
     }
+
     public static void markTask(String input) {
-        int numberToMark = Integer.parseInt(input)-1;
+        int numberToMark = Integer.parseInt(input) - 1;
         tasks[numberToMark].setIsDone();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("[" + tasks[numberToMark].getIsDone() + "] " + tasks[numberToMark].getDescription());
+        System.out.println("[" + tasks[numberToMark].markString() + "] " + tasks[numberToMark].getDescription());
     }
+
     public static void unmarkTask(String input) {
-        int numberToUnmark = Integer.parseInt(input)-1;
+        int numberToUnmark = Integer.parseInt(input) - 1;
         tasks[numberToUnmark].setIsNotDone();
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("[" + tasks[numberToUnmark].getIsDone() + "] " + tasks[numberToUnmark].getDescription());
+        System.out.println("[" + tasks[numberToUnmark].markString() + "] " + tasks[numberToUnmark].getDescription());
     }
 
     public static void printDescription() {
@@ -97,8 +99,7 @@ public class SixSeven {
         String strTask;
         if (taskCount == 1) {
             strTask = "task";
-        }
-        else {
+        } else {
             strTask = "tasks";
         }
         System.out.println("Now you have " + taskCount + " " + strTask + " in the list.");

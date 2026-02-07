@@ -7,7 +7,7 @@ public class Task {
         this.isDone = false;
     }
 
-    public String getIsDone() {
+    public String markString() {
         return (isDone ? "X" : " "); // mark done task with X
     }
     public String getDescription() {
@@ -22,7 +22,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return String.format("[T][%s] %s", getIsDone(), description);
+        return String.format("[T][%s] %s", markString(), description);
     }
 }
 
