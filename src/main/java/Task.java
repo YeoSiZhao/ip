@@ -16,6 +16,9 @@ public class Task {
     public void setIsDone() {
         isDone = true;
     }
+    public boolean getIsDone(){
+        return isDone;
+    }
     public void setIsNotDone() {
         isDone = false;
     }
