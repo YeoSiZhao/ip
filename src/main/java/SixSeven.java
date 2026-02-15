@@ -253,6 +253,16 @@ public class SixSeven {
             if (taskIdx < 1 || taskIdx > tasks.size()) {
                 throw new InvalidFormatException("Task number is out of range.");
             }
+
+            int index = taskIdx - 1;
+
+            if (command.equals("mark") && tasks.get(index).getIsDone()) {
+                throw new InvalidFormatException("Task " + taskIdx + " is already done.");
+            }
+
+            if (command.equals("unmark") && !tasks.get(index).getIsDone()) {
+                throw new InvalidFormatException("Task " + taskIdx + " is not done yet.");
+            }
         }
 
         if (command.equals("delete")) {
