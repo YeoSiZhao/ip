@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.*;
+import java.nio.file.*;
 
 import errors.EmptyException;
 import errors.InvalidFormatException;
@@ -13,9 +15,13 @@ import task.Todo;
 public class SixSeven {
 
     public static final String BOT_NAME = "SixSeven";
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static final ArrayList<Task> tasks = new ArrayList<>();
+    private static final String FILE_PATH = "data" + File.separator + "sixseven.txt";
 
     public static void main(String[] args) {
+
+        loadFromFile();
+
         System.out.println("Hello! I'm " + BOT_NAME);
         System.out.println("What can I do for you?");
 
@@ -38,6 +44,7 @@ public class SixSeven {
                 case "todo":
                     tasks.add(new Todo(description));
                     printAddDescription();
+                    saveToFile();
                     break;
                 case "deadline":
                     int byIdx = description.indexOf(" /by ");
@@ -47,6 +54,7 @@ public class SixSeven {
 
                     tasks.add(new Deadline(deadlineDescription, by));
                     printAddDescription();
+                    saveToFile();
                     break;
                 case "event":
                     int fromIdx = description.indexOf(" /from ");
@@ -58,6 +66,7 @@ public class SixSeven {
 
                     tasks.add(new Event(eventDescription, from, to));
                     printAddDescription();
+                    saveToFile();
                     break;
                 case "delete":
                     int deleteIndex = Integer.parseInt(description) - 1;
@@ -66,16 +75,17 @@ public class SixSeven {
                     System.out.println("Noted. I've removed this task:");
                     System.out.println(" " + removedTask);
                     printTaskCountAfterUpdate();
-
                     break;
                 case "list":
                     listTask();
                     break;
                 case "mark":
                     markTask(description);
+                    saveToFile();
                     break;
                 case "unmark":
                     unmarkTask(description);
+                    saveToFile();
                     break;
                 default:
                     throw new UnknownCommandException("What do you mean!!!! >:(");
@@ -86,8 +96,95 @@ public class SixSeven {
         }
     }
 
+    private static void loadFromFile() {
+        try {
+            Path path = Paths.get(FILE_PATH);
+
+            if (!Files.exists(path)) {
+                Files.createDirectories(path.getParent());
+                Files.createFile(path);
+                return;
+            }
+
+            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                try {
+                    String[] parts = line.split(" \\| ");
+
+                    if (parts.length < 3) {
+                        continue;
+                    }
+
+                    String type = parts[0];
+                    boolean isDone = parts[1].equals("1");
+
+                    switch (type) {
+                    case "T":
+                        Task todo = new Todo(parts[2]);
+                        if (isDone) todo.setIsDone();
+                        tasks.add(todo);
+                        break;
+                    case "D":
+                        if (parts.length < 4) continue;
+                        Task deadline = new Deadline(parts[2], parts[3]);
+                        if (isDone) deadline.setIsDone();
+                        tasks.add(deadline);
+                        break;
+                    case "E":
+                        if (parts.length < 5) continue;
+                        Task event = new Event(parts[2], parts[3], parts[4]);
+                        if (isDone) event.setIsDone();
+                        tasks.add(event);
+                        break;
+                    default:
+                        break;
+                    }
+
+                } catch (Exception ignored) {
+                }
+            }
+
+            reader.close();
+
+        } catch (IOException e) {
+            System.out.println("Error loading file.");
+        }
+    }
+
+    private static void saveToFile() {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
+
+            for (Task task : tasks) {
+
+                String status = task.getIsDone() ? "1" : "0";
+
+                if (task instanceof Todo) {
+                    writer.write("T | " + status + " | " + task.getDescription());
+                } else if (task instanceof Deadline d) {
+                    writer.write("D | " + status + " | " + d.getDescription()
+                            + " | " + d.getBy());
+                } else if (task instanceof Event e) {
+                    writer.write("E | " + status + " | " + e.getDescription()
+                            + " | " + e.getFrom() + " | " + e.getTo());
+                }
+
+                writer.newLine();
+            }
+
+            writer.close();
+
+        } catch (IOException e) {
+            System.out.println("Error saving file.");
+        }
+    }
+
     private static void checkErrors(String command, String description)
             throws SixSevenException {
+
+        description = description.trim().replaceAll("\\s+", " ");
 
         if ((command.equals("todo")
                 || command.equals("deadline")
@@ -156,16 +253,6 @@ public class SixSeven {
             if (taskIdx < 1 || taskIdx > tasks.size()) {
                 throw new InvalidFormatException("Task number is out of range.");
             }
-
-            int index = taskIdx - 1;
-
-            if (command.equals("mark") && tasks.get(index).getIsDone()) {
-                throw new InvalidFormatException("Task " + taskIdx + " is already done.");
-            }
-
-            if (command.equals("unmark") && !tasks.get(index).getIsDone()) {
-                throw new InvalidFormatException("Task " + taskIdx + " is not done yet.");
-            }
         }
 
         if (command.equals("delete")) {
@@ -225,4 +312,3 @@ public class SixSeven {
         }
     }
 }
-
