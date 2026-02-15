@@ -37,8 +37,7 @@ public class SixSeven {
                     return;
                 case "todo":
                     tasks.add(new Todo(description));
-                    System.out.println("Got it. I've added this task:");
-                    printDescription();
+                    printAddDescription();
                     break;
                 case "deadline":
                     int byIdx = description.indexOf(" /by ");
@@ -47,8 +46,7 @@ public class SixSeven {
                     String deadlineDescription = description.substring(0, byIdx);
 
                     tasks.add(new Deadline(deadlineDescription, by));
-                    System.out.println("Got it. I've added this task:");
-                    printDescription();
+                    printAddDescription();
                     break;
                 case "event":
                     int fromIdx = description.indexOf(" /from ");
@@ -59,8 +57,7 @@ public class SixSeven {
                     String to = description.substring(toIdx + 5).trim();
 
                     tasks.add(new Event(eventDescription, from, to));
-                    System.out.println("Got it. I've added this task:");
-                    printDescription();
+                    printAddDescription();
                     break;
                 case "delete":
                     int deleteIndex = Integer.parseInt(description) - 1;
@@ -68,12 +65,8 @@ public class SixSeven {
 
                     System.out.println("Noted. I've removed this task:");
                     System.out.println(" " + removedTask);
+                    printTaskCountAfterUpdate();
 
-                    if (tasks.size() == 1) {
-                        System.out.println("Now you have 1 task in the list.");
-                    } else {
-                        System.out.println("Now you have " + tasks.size() + " tasks in the list.");
-                    }
                     break;
                 case "list":
                     listTask();
@@ -95,8 +88,6 @@ public class SixSeven {
 
     private static void checkErrors(String command, String description)
             throws SixSevenException {
-
-        description = description.trim().replaceAll("\\s+", " ");
 
         if ((command.equals("todo")
                 || command.equals("deadline")
@@ -219,13 +210,19 @@ public class SixSeven {
                 + tasks.get(numberToUnmark).getDescription());
     }
 
-    public static void printDescription() {
+    public static void printAddDescription() {
+        System.out.println("Got it. I've added this task:");
         System.out.println(" " + tasks.get(tasks.size() - 1));
+        printTaskCountAfterUpdate();
+    }
 
-        if (tasks.size() == 1) {
+    private static void printTaskCountAfterUpdate() {
+        int size = tasks.size();
+        if (size == 1) {
             System.out.println("Now you have 1 task in the list.");
         } else {
-            System.out.println("Now you have " + tasks.size() + " tasks in the list.");
+            System.out.println("Now you have " + size + " tasks in the list.");
         }
     }
 }
+
