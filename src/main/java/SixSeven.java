@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 import errors.EmptyException;
 import errors.InvalidFormatException;
@@ -11,10 +12,8 @@ import task.Todo;
 
 public class SixSeven {
 
-    public static final int MAX_TASK = 100;
     public static final String BOT_NAME = "SixSeven";
-    private static final Task[] tasks = new Task[MAX_TASK];
-    private static int taskCount = 0;
+    private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
         System.out.println("Hello! I'm " + BOT_NAME);
@@ -37,7 +36,7 @@ public class SixSeven {
                     scanner.close();
                     return;
                 case "todo":
-                    tasks[taskCount] = new Todo(description);
+                    tasks.add(new Todo(description));
                     printDescription();
                     break;
                 case "deadline":
@@ -46,7 +45,7 @@ public class SixSeven {
                     String by = description.substring(byIdx + 4).trim();
                     String deadlineDescription = description.substring(0, byIdx);
 
-                    tasks[taskCount] = new Deadline(deadlineDescription, by);
+                    tasks.add(new Deadline(deadlineDescription, by));
                     printDescription();
                     break;
                 case "event":
@@ -57,7 +56,7 @@ public class SixSeven {
                     String from = description.substring(fromIdx + 6, toIdx).trim();
                     String to = description.substring(toIdx + 4).trim();
 
-                    tasks[taskCount] = new Event(eventDescription, from, to);
+                    tasks.add(new Event(eventDescription, from, to));
                     printDescription();
                     break;
                 case "list":
@@ -103,16 +102,16 @@ public class SixSeven {
                 throw new InvalidFormatException("Mark and unmark must be followed by a number.");
             }
 
-            if (taskIdx < 1 || taskIdx > taskCount) {
+            if (taskIdx < 1 || taskIdx > tasks.size()) {
                 throw new InvalidFormatException("Task number is out of range.");
             }
 
             int internalIdx = taskIdx - 1;
 
-            if (command.equals("unmark") && !tasks[internalIdx].getIsDone()) {
+            if (command.equals("unmark") && !tasks.get(internalIdx).getIsDone()) {
                 throw new InvalidFormatException("Task " + description + " is not done yet.");
             }
-            if (command.equals("mark") && tasks[internalIdx].getIsDone()) {
+            if (command.equals("mark") && tasks.get(internalIdx).getIsDone()) {
                 throw new InvalidFormatException("Task " + description + " is already done.");
             }
         }
@@ -120,41 +119,39 @@ public class SixSeven {
 
 
     public static void listTask() {
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             System.out.println("No task available");
         } else {
             System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println(i + 1 + "." + tasks[i]);
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println(i + 1 + "." + tasks.get(i));
             }
         }
     }
 
     public static void markTask(String input) {
         int numberToMark = Integer.parseInt(input) - 1;
-        tasks[numberToMark].setIsDone();
+        tasks.get(numberToMark).setIsDone();
         System.out.println("Nice! I've marked this task as done:");
-        System.out.println("[" + tasks[numberToMark].markString() + "] " + tasks[numberToMark].getDescription());
+        System.out.println("[" + tasks.get(numberToMark).markString() + "] " + tasks.get(numberToMark).getDescription());
     }
 
     public static void unmarkTask(String input) {
         int numberToUnmark = Integer.parseInt(input) - 1;
-        tasks[numberToUnmark].setIsNotDone();
+        tasks.get(numberToUnmark).setIsNotDone();
         System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println("[" + tasks[numberToUnmark].markString() + "] " + tasks[numberToUnmark].getDescription());
+        System.out.println("[" + tasks.get(numberToUnmark).markString() + "] " + tasks.get(numberToUnmark).getDescription());
     }
 
     public static void printDescription() {
         System.out.println("Got it. I've added this task:");
-        System.out.println(" " + tasks[taskCount]);
-        taskCount++;
+        System.out.println(" " + tasks.get(tasks.size() - 1));
         String strTask;
-        if (taskCount == 1) {
+        if (tasks.size() == 1) {
             strTask = "task";
         } else {
             strTask = "tasks";
         }
-        System.out.println("Now you have " + taskCount + " " + strTask + " in the list.");
+        System.out.println("Now you have " + tasks.size() + " " + strTask + " in the list.");
     }
 }
-
