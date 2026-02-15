@@ -77,23 +77,68 @@ public class SixSeven {
         }
     }
 
-    private static void checkErrors(String command, String description) throws SixSevenException {
-        // Commands that require a description
-        if ((command.equals("todo") || command.equals("deadline") || command.equals("event")) && description.isBlank()) {
+    private static void checkErrors(String command, String description)
+            throws SixSevenException {
+
+        if ((command.equals("todo")
+                || command.equals("deadline")
+                || command.equals("event"))
+                && description.isBlank()) {
             throw new EmptyException("Description cannot be blank!");
         }
 
-        // deadline must contain /by
-        if (command.equals("deadline") && !description.contains("/by")) {
-            throw new InvalidFormatException("Deadline must consist of /by");
+        if (command.equals("deadline")) {
+
+            int byIdx = description.indexOf(" /by ");
+
+            if (byIdx == -1) {
+                throw new InvalidFormatException("Deadline format: [description] /by [date]");
+            }
+
+            String before = description.substring(0, byIdx).trim();
+            String after = description.substring(byIdx + 5).trim();
+
+            if (before.isBlank() || after.isBlank()) {
+                throw new InvalidFormatException("Deadline must contain description and date.");
+            }
         }
 
-        // event must contain both /from and /to
-        if (command.equals("event") && (!description.contains("/from") || !description.contains("/to"))) {
-            throw new InvalidFormatException("Event must consist of /from and /to");
+        if (command.equals("event")) {
+
+            int fromIdx = description.indexOf(" /from ");
+            int toIdx = description.indexOf(" /to ");
+
+            if (fromIdx == -1 || toIdx == -1) {
+                throw new InvalidFormatException(
+                        "Event format: description /from START /to END");
+            }
+
+            if (fromIdx >= toIdx) {
+                throw new InvalidFormatException(
+                        "Event format must be: description /from START /to END");
+            }
+
+            int fromStart = fromIdx + 7;
+            int toStart = toIdx + 5;
+
+            // ensure there is space for START section
+            if (fromStart >= toIdx) {
+                throw new InvalidFormatException(
+                        "Event must contain a start time between /from and /to.");
+            }
+
+            String beforeFrom = description.substring(0, fromIdx).trim();
+            String afterFrom = description.substring(fromStart, toIdx).trim();
+            String afterTo = description.substring(toStart).trim();
+
+            if (beforeFrom.isBlank() || afterFrom.isBlank() || afterTo.isBlank()) {
+                throw new InvalidFormatException(
+                        "Event must contain description, start time, and end time.");
+            }
         }
 
         if (command.equals("mark") || command.equals("unmark")) {
+
             int taskIdx;
 
             try {
@@ -106,17 +151,17 @@ public class SixSeven {
                 throw new InvalidFormatException("Task number is out of range.");
             }
 
-            int internalIdx = taskIdx - 1;
+            int index = taskIdx - 1;
 
-            if (command.equals("unmark") && !tasks.get(internalIdx).getIsDone()) {
-                throw new InvalidFormatException("Task " + description + " is not done yet.");
+            if (command.equals("mark") && tasks.get(index).getIsDone()) {
+                throw new InvalidFormatException("Task " + taskIdx + " is already done.");
             }
-            if (command.equals("mark") && tasks.get(internalIdx).getIsDone()) {
-                throw new InvalidFormatException("Task " + description + " is already done.");
+
+            if (command.equals("unmark") && !tasks.get(index).getIsDone()) {
+                throw new InvalidFormatException("Task " + taskIdx + " is not done yet.");
             }
         }
     }
-
 
     public static void listTask() {
         if (tasks.isEmpty()) {
