@@ -62,6 +62,10 @@ public class CommandHandler {
             storage.save(tasks);
             break;
 
+        case "find":
+            TaskHelpers.findTasks(description, tasks);
+            break;
+
         case "list":
             TaskHelpers.listTask(tasks);
             break;
