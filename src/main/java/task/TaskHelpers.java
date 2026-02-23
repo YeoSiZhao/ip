@@ -1,9 +1,26 @@
 package task;
 
 import java.util.ArrayList;
-import task.Task;
 
 public class TaskHelpers {
+    public static void findTasks(String keyword, ArrayList<Task> tasks) {
+        System.out.println("Here are the matching tasks in your list:");
+
+        int counter = 1;
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase()
+                    .contains(keyword.toLowerCase())) {
+
+                System.out.println(" " + counter + "." + task);
+                counter++;
+            }
+        }
+
+        if (counter == 1) {
+            System.out.println("No matching tasks found.");
+        }
+    }
+
     public static void listTask(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
             System.out.println("No task available");
