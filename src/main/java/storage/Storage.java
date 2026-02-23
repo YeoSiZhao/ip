@@ -1,3 +1,5 @@
+package storage;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -23,12 +25,6 @@ public class Storage {
 
         try {
             File file = new File(filePath);
-
-//            if (!file.exists()) {
-//                file.getParentFile().mkdirs();
-//                file.createNewFile();
-//                return tasks;
-//            }
 
             Scanner scanner = new Scanner(file);
 
