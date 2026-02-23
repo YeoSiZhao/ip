@@ -10,7 +10,7 @@ import storage.Storage;
 
 public class SixSeven {
 
-    public static final String BOT_NAME = "test";
+    public static final String BOT_NAME = "SixSeven";
     private static final ArrayList<Task> tasks = new ArrayList<>();
     private static final String FILE_PATH = "data/sixseven.txt";
     private static final Storage storage = new Storage(FILE_PATH);
