@@ -1,26 +1,270 @@
-# Duke project template
+# SixSeven
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+SixSeven is a CLI-based task management chatbot written in Java.  
+It allows users to manage tasks efficiently through typed commands.  
+Tasks are saved locally and automatically loaded when the application starts.
 
-## Setting up in Intellij
+---
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## Features
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+SixSeven supports:
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+- Add Todo tasks
+- Add Deadline tasks
+- Add Event tasks
+- List all tasks
+- Find tasks by keyword
+- Mark and unmark tasks
+- Delete tasks
+- Persistent local storage
+
+---
+
+## Command Summary
+
+| Command | Format |
+|----------|----------|
+| Add todo | `todo DESCRIPTION` |
+| Add deadline | `deadline DESCRIPTION /by DATE` |
+| Add event | `event DESCRIPTION /from START /to END` |
+| List tasks | `list` |
+| Find tasks | `find KEYWORD` |
+| Mark task | `mark TASK_NUMBER` |
+| Unmark task | `unmark TASK_NUMBER` |
+| Delete task | `delete TASK_NUMBER` |
+| Exit | `bye` |
+
+---
+
+## Usage Guide
+
+### Add a Todo
+
+Adds a task without date or time.
+
+**Format**
+```
+todo DESCRIPTION
+```
+
+**Example**
+```
+todo read book
+```
+
+**Output**
+```
+Got it. I've added this task:
+ [T][ ] read book
+Now you have 1 task in the list.
+```
+
+---
+
+### Add a Deadline
+
+Adds a task with a due date.
+
+**Format**
+```
+deadline DESCRIPTION /by DATE
+```
+
+**Example**
+```
+deadline submit report /by Friday
+```
+
+**Invalid format**
+```
+Deadline format: [description] /by [date]
+```
+
+---
+
+### Add an Event
+
+Adds a task with a start and end time.
+
+**Format**
+```
+event DESCRIPTION /from START /to END
+```
+
+**Example**
+```
+event project meeting /from 2pm /to 4pm
+```
+
+**Invalid format**
+```
+Event format: description /from START /to END
+```
+
+---
+
+### List Tasks
+
+Displays all tasks.
+
+**Format**
+```
+list
+```
+
+If empty:
+```
+No task available
+```
+
+---
+
+### Find Tasks
+
+Searches for tasks containing a keyword.
+
+**Format**
+```
+find KEYWORD
+```
+
+Example:
+```
+find meeting
+```
+
+---
+
+### Mark Task
+
+Marks a task as completed.
+
+**Format**
+```
+mark TASK_NUMBER
+```
+
+Example:
+```
+mark 2
+```
+
+Possible errors:
+```
+Mark and unmark must be followed by a number.
+Task number is out of range.
+```
+
+---
+
+### Unmark Task
+
+Marks a task as not completed.
+
+**Format**
+```
+unmark TASK_NUMBER
+```
+
+---
+
+### Delete Task
+
+Removes a task from the list.
+
+**Format**
+```
+delete TASK_NUMBER
+```
+
+Example:
+```
+delete 1
+```
+
+Possible errors:
+```
+Delete must be followed by a number.
+No such item to delete. Check item index again.
+```
+
+---
+
+### Exit Program
+
+Closes the application.
+
+**Format**
+```
+bye
+```
+
+Output:
+```
+Bye. Hope to see you again soon!
+```
+
+---
+
+## Data Storage
+
+Tasks are saved in:
+
+```
+data/sixseven.txt
+```
+
+- Data is loaded at startup
+- Changes are saved immediately after modification
+
+---
+
+## Project Structure
+
+```
+SixSeven
+├── errors
+│   ├── ErrorChecker
+│   ├── SixSevenException
+│   ├── EmptyException
+│   ├── InvalidFormatException
+│   └── UnknownCommandException
+│
+├── task
+│   ├── Task
+│   ├── Todo
+│   ├── Deadline
+│   ├── Event
+│   └── TaskHelpers
+│
+├── utils
+│   ├── CommandHandler
+│   └── Helpers
+│
+├── storage
+│   └── Storage
+│
+└── SixSeven.java
+```
+
+---
+
+## Requirements
+
+- Java 17 or later
+- Terminal / Command Prompt
+
+---
+
+## Running the Program
+
+Compile:
+```
+javac *.java
+```
+
+Run:
+```
+java SixSeven
+```
