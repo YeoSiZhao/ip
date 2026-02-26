@@ -4,7 +4,22 @@ import java.util.ArrayList;
 
 import task.Task;
 
+/**
+ * Performs validation checks on user commands before execution.
+ * An <code>ErrorChecker</code> object ensures that command formats,
+ * required arguments, and task index constraints are valid.
+ */
 public class ErrorChecker {
+
+    /**
+     * Validates the given command and its description.
+     * Throws an exception if the input format or arguments are invalid.
+     *
+     * @param command     Command keyword entered by the user.
+     * @param description Description or arguments associated with the command.
+     * @param tasks       Current list of tasks for validation checks.
+     * @throws SixSevenException If validation fails.
+     */
     public static void checkErrors(String command, String description, ArrayList<Task> tasks)
             throws SixSevenException {
 

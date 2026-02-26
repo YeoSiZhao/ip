@@ -7,8 +7,23 @@ import errors.UnknownCommandException;
 import task.*;
 import storage.Storage;
 
+/**
+ * Handles execution of user commands.
+ * A <code>CommandHandler</code> object processes parsed commands
+ * and performs the corresponding operations on the task list.
+ */
 public class CommandHandler {
 
+    /**
+     * Executes the specified command using the given description and task list.
+     * Updates storage where necessary.
+     *
+     * @param command     Command keyword entered by the user.
+     * @param description Description or arguments associated with the command.
+     * @param tasks       Current list of tasks in memory.
+     * @param storage     Storage handler used to persist task updates.
+     * @throws SixSevenException If the command is invalid or execution fails.
+     */
     public static void execute(
             String command,
             String description,
