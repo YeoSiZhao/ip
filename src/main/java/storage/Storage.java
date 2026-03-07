@@ -18,6 +18,22 @@ public class Storage {
 
     public Storage(String filePath) {
         this.filePath = filePath;
+
+        try {
+            File file = new File(filePath);
+            File parent = file.getParentFile();
+
+            if (parent != null && !parent.exists()) {
+                parent.mkdirs();
+            }
+
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error initializing storage.");
+        }
     }
 
     public ArrayList<Task> load() {
@@ -25,14 +41,15 @@ public class Storage {
 
         try {
             File file = new File(filePath);
-
             Scanner scanner = new Scanner(file);
 
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] parts = line.split(" \\| ");
 
-                if (parts.length < 3) continue;
+                if (parts.length < 3) {
+                    continue;
+                }
 
                 String type = parts[0];
                 boolean isDone = parts[1].equals("1");
@@ -41,21 +58,31 @@ public class Storage {
 
                 case "T":
                     Task todo = new Todo(parts[2]);
-                    if (isDone) todo.setIsDone();
+                    if (isDone) {
+                        todo.setIsDone();
+                    }
                     tasks.add(todo);
                     break;
 
                 case "D":
-                    if (parts.length < 4) continue;
+                    if (parts.length < 4) {
+                        continue;
+                    }
                     Task deadline = new Deadline(parts[2], parts[3]);
-                    if (isDone) deadline.setIsDone();
+                    if (isDone) {
+                        deadline.setIsDone();
+                    }
                     tasks.add(deadline);
                     break;
 
                 case "E":
-                    if (parts.length < 5) continue;
+                    if (parts.length < 5) {
+                        continue;
+                    }
                     Task event = new Event(parts[2], parts[3], parts[4]);
-                    if (isDone) event.setIsDone();
+                    if (isDone) {
+                        event.setIsDone();
+                    }
                     tasks.add(event);
                     break;
 
