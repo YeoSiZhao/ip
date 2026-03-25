@@ -40,7 +40,7 @@ public class CommandHandler {
 
         case "todo":
             tasks.add(new Todo(description));
-            Helpers.printAddDescription(tasks);
+            Helpers.printAddedTask(tasks);
             storage.save(tasks);
             break;
 
@@ -50,7 +50,7 @@ public class CommandHandler {
             String deadlineDescription = description.substring(0, byIdx);
 
             tasks.add(new Deadline(deadlineDescription, by));
-            Helpers.printAddDescription(tasks);
+            Helpers.printAddedTask(tasks);
             storage.save(tasks);
             break;
 
@@ -63,7 +63,7 @@ public class CommandHandler {
             String to = description.substring(toIdx + 5).trim();
 
             tasks.add(new Event(eventDescription, from, to));
-            Helpers.printAddDescription(tasks);
+            Helpers.printAddedTask(tasks);
             storage.save(tasks);
             break;
 
@@ -82,7 +82,7 @@ public class CommandHandler {
             break;
 
         case "list":
-            TaskHelpers.listTask(tasks);
+            TaskHelpers.listTasks(tasks);
             break;
 
         case "mark":

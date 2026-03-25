@@ -83,11 +83,11 @@ public class ErrorChecker {
 
             int index = taskIdx - 1;
 
-            if (command.equals("mark") && tasks.get(index).getIsDone()) {
+            if (command.equals("mark") && tasks.get(index).isDone()) {
                 throw new InvalidFormatException("Task " + taskIdx + " is already done.");
             }
 
-            if (command.equals("unmark") && !tasks.get(index).getIsDone()) {
+            if (command.equals("unmark") && !tasks.get(index).isDone()) {
                 throw new InvalidFormatException("Task " + taskIdx + " is not done yet.");
             }
         }

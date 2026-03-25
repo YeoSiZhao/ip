@@ -40,7 +40,7 @@ public class TaskHelpers {
      *
      * @param tasks List of tasks to be displayed.
      */
-    public static void listTask(ArrayList<Task> tasks) {
+    public static void listTasks(ArrayList<Task> tasks) {
         if (tasks.isEmpty()) {
             System.out.println("No task available");
         } else {
@@ -59,7 +59,7 @@ public class TaskHelpers {
      */
     public static void markTask(String input, ArrayList<Task> tasks) {
         int numberToMark = Integer.parseInt(input) - 1;
-        tasks.get(numberToMark).setIsDone();
+        tasks.get(numberToMark).setDone(true);
         System.out.println("Nice! I've marked this task as done:");
         System.out.println("[" + tasks.get(numberToMark).markString() + "] "
                 + tasks.get(numberToMark).getDescription());
@@ -73,7 +73,7 @@ public class TaskHelpers {
      */
     public static void unmarkTask(String input, ArrayList<Task> tasks) {
         int numberToUnmark = Integer.parseInt(input) - 1;
-        tasks.get(numberToUnmark).setIsNotDone();
+        tasks.get(numberToUnmark).setDone(false);
         System.out.println("OK, I've marked this task as not done yet:");
         System.out.println("[" + tasks.get(numberToUnmark).markString() + "] "
                 + tasks.get(numberToUnmark).getDescription());

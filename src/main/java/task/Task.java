@@ -28,7 +28,7 @@ public class Task {
      * @return "X" if the task is done, otherwise a blank space.
      */
     public String markString() {
-        return (isDone ? "X" : " "); // mark done task with X
+        return isDone ? "X" : " ";
     }
 
     /**
@@ -41,10 +41,12 @@ public class Task {
     }
 
     /**
-     * Marks the task as completed.
+     * Sets the completion status of the task.
+     *
+     * @param isDone True if the task is completed, false otherwise.
      */
-    public void setIsDone() {
-        isDone = true;
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 
     /**
@@ -52,15 +54,8 @@ public class Task {
      *
      * @return true if task is done, false otherwise.
      */
-    public boolean getIsDone() {
+    public boolean isDone() {
         return isDone;
-    }
-
-    /**
-     * Marks the task as not completed.
-     */
-    public void setIsNotDone() {
-        isDone = false;
     }
 
     /**

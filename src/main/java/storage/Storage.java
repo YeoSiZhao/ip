@@ -75,7 +75,7 @@ public class Storage {
                 case "T":
                     Task todo = new Todo(parts[2]);
                     if (isDone) {
-                        todo.setIsDone();
+                        todo.setDone(true);
                     }
                     tasks.add(todo);
                     break;
@@ -86,7 +86,7 @@ public class Storage {
                     }
                     Task deadline = new Deadline(parts[2], parts[3]);
                     if (isDone) {
-                        deadline.setIsDone();
+                        deadline.setDone(true);
                     }
                     tasks.add(deadline);
                     break;
@@ -97,7 +97,7 @@ public class Storage {
                     }
                     Task event = new Event(parts[2], parts[3], parts[4]);
                     if (isDone) {
-                        event.setIsDone();
+                        event.setDone(true);
                     }
                     tasks.add(event);
                     break;
@@ -127,7 +127,7 @@ public class Storage {
 
             for (Task task : tasks) {
 
-                String status = task.getIsDone() ? "1" : "0";
+                String status = task.isDone() ? "1" : "0";
                 String line = "";
 
                 if (task instanceof Todo) {

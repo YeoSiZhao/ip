@@ -16,7 +16,7 @@ public class Helpers {
      *
      * @param tasks List of tasks after the new task has been added.
      */
-    public static void printAddDescription(ArrayList<Task> tasks) {
+    public static void printAddedTask(ArrayList<Task> tasks) {
         System.out.println("Got it. I've added this task:");
         System.out.println(" " + tasks.get(tasks.size() - 1));
         printTaskCountAfterUpdate(tasks);
