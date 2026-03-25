@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class TaskHelpers {
 
     /**
-     * Finds and prints tasks that contain the specified keyword.
+     * Prints tasks that contain the specified keyword.
      * If no matching tasks are found, a message is displayed.
      *
      * @param keyword Keyword used to search task descriptions.

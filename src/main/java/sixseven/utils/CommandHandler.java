@@ -20,7 +20,7 @@ public class CommandHandler {
 
     /**
      * Executes the specified command using the given description and task list.
-     * Updates storage where necessary.
+     * Updates storage when the task list changes.
      *
      * @param command     Command keyword entered by the user.
      * @param description Description or arguments associated with the command.

@@ -48,7 +48,7 @@ public class Storage {
     }
 
     /**
-     * Loads tasks from the storage file into memory.
+     * Returns tasks loaded from the storage file.
      *
      * @return List of tasks loaded from disk.
      */

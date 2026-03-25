@@ -12,7 +12,7 @@ import sixseven.task.Task;
 public class ErrorChecker {
 
     /**
-     * Validates the given command and its description.
+     * Checks the given command and description for input errors.
      * Throws an exception if the input format or arguments are invalid.
      *
      * @param command     Command keyword entered by the user.

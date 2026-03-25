@@ -13,7 +13,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Creates a Task with the specified description.
+     * Creates a task with the specified description.
      *
      * @param description Description of the task.
      */
@@ -23,7 +23,7 @@ public class Task {
     }
 
     /**
-     * Returns the mark string representing completion status.
+     * Returns the mark string representing the completion status.
      *
      * @return "X" if the task is done, otherwise a blank space.
      */
@@ -52,7 +52,7 @@ public class Task {
     /**
      * Returns whether the task is completed.
      *
-     * @return true if task is done, false otherwise.
+     * @return True if the task is done, false otherwise.
      */
     public boolean isDone() {
         return isDone;

@@ -58,7 +58,7 @@ public class SixSeven {
     }
 
     /**
-     * Parses user input into command and description components.
+     * Returns the parsed command and description from the next input line.
      * If no description is provided, an empty string is returned.
      *
      * @param scanner Scanner used to read user input.
@@ -74,7 +74,7 @@ public class SixSeven {
     }
 
     /**
-     * Represents a parsed user input consisting of a command and description.
+     * Stores a parsed user input consisting of a command and description.
      */
     private record Result(String command, String description) {
     }

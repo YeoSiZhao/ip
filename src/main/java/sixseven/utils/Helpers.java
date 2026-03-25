@@ -12,7 +12,7 @@ public class Helpers {
 
     /**
      * Prints confirmation after a task has been added.
-     * Also displays the updated task count.
+     * Also prints the updated task count.
      *
      * @param tasks List of tasks after the new task has been added.
      */

@@ -21,7 +21,6 @@ public class Event extends Task {
         super(eventDescription);
         this.from = from;
         this.to = to;
-
     }
 
     /**
