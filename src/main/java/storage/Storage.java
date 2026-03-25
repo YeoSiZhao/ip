@@ -12,10 +12,21 @@ import task.Event;
 import task.Task;
 import task.Todo;
 
+/**
+ * Handles persistent storage of tasks in a text file.
+ * A <code>Storage</code> object is responsible for creating the storage file,
+ * loading tasks from disk, and saving tasks back to disk.
+ */
 public class Storage {
 
     private final String filePath;
 
+    /**
+     * Creates a storage handler for the given file path.
+     * The parent directory and file are created if they do not already exist.
+     *
+     * @param filePath Path to the task storage file.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
 
@@ -36,6 +47,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads tasks from the storage file into memory.
+     *
+     * @return List of tasks loaded from disk.
+     */
     public ArrayList<Task> load() {
         ArrayList<Task> tasks = new ArrayList<>();
 
@@ -100,6 +116,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the current task list to the storage file.
+     *
+     * @param tasks List of tasks to be written to disk.
+     */
     public void save(ArrayList<Task> tasks) {
         try {
             FileWriter fw = new FileWriter(filePath);
