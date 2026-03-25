@@ -19,17 +19,17 @@ public class TaskHelpers {
     public static void findTasks(String keyword, ArrayList<Task> tasks) {
         System.out.println("Here are the matching tasks in your list:");
 
-        int counter = 1;
-        for (Task task : tasks) {
+        boolean hasMatches = false;
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
             if (task.getDescription().toLowerCase()
                     .contains(keyword.toLowerCase())) {
-
-                System.out.println(" " + counter + "." + task);
-                counter++;
+                System.out.println((i + 1) + "." + task);
+                hasMatches = true;
             }
         }
 
-        if (counter == 1) {
+        if (!hasMatches) {
             System.out.println("No matching tasks found.");
         }
     }

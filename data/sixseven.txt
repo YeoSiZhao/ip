@@ -1,0 +1,4 @@
+T | 0 | read book
+T | 0 | write book
+T | 0 | read book
+T | 0 | gym
