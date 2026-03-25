@@ -1,4 +1,4 @@
-package task;
+package sixseven.task;
 
 import java.util.ArrayList;
 

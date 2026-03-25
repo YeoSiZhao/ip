@@ -1,4 +1,4 @@
-package errors;
+package sixseven.errors;
 
 /**
  * Represents the base checked exception type for the SixSeven application.

@@ -1,11 +1,15 @@
-package utils;
+package sixseven.utils;
 
 import java.util.ArrayList;
 
-import errors.SixSevenException;
-import errors.UnknownCommandException;
-import task.*;
-import storage.Storage;
+import sixseven.errors.SixSevenException;
+import sixseven.errors.UnknownCommandException;
+import sixseven.storage.Storage;
+import sixseven.task.Deadline;
+import sixseven.task.Event;
+import sixseven.task.Task;
+import sixseven.task.TaskHelpers;
+import sixseven.task.Todo;
 
 /**
  * Handles execution of user commands.

@@ -1,4 +1,4 @@
-package storage;
+package sixseven.storage;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -7,10 +7,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import task.Deadline;
-import task.Event;
-import task.Task;
-import task.Todo;
+import sixseven.task.Deadline;
+import sixseven.task.Event;
+import sixseven.task.Task;
+import sixseven.task.Todo;
 
 /**
  * Handles persistent storage of tasks in a text file.

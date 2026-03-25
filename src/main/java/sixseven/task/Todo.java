@@ -1,4 +1,4 @@
-package task;
+package sixseven.task;
 
 /**
  * Represents a basic task with only a description and completion status.

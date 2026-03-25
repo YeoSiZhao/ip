@@ -1,8 +1,8 @@
-package errors;
+package sixseven.errors;
 
 import java.util.ArrayList;
 
-import task.Task;
+import sixseven.task.Task;
 
 /**
  * Performs validation checks on user commands before execution.

@@ -1,7 +1,7 @@
-package utils;
+package sixseven.utils;
 
 import java.util.ArrayList;
-import task.Task;
+import sixseven.task.Task;
 
 /**
  * Provides utility methods for printing task-related messages.

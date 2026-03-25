@@ -1,4 +1,4 @@
-package errors;
+package sixseven.errors;
 
 /**
  * Represents an error caused by an unrecognized user command.

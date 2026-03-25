@@ -1,4 +1,4 @@
-package task;
+package sixseven.task;
 
 /**
  * Represents a generic task in the system.

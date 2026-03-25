@@ -1,12 +1,13 @@
+package sixseven;
+
 import java.util.Scanner;
 import java.util.ArrayList;
 
-import errors.ErrorChecker;
-import errors.SixSevenException;
-import task.Task;
-
-import utils.CommandHandler;
-import storage.Storage;
+import sixseven.errors.ErrorChecker;
+import sixseven.errors.SixSevenException;
+import sixseven.storage.Storage;
+import sixseven.task.Task;
+import sixseven.utils.CommandHandler;
 
 /**
  * Represents the main entry point of the SixSeven application.

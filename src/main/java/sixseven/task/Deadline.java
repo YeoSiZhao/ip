@@ -1,4 +1,4 @@
-package task;
+package sixseven.task;
 
 /**
  * Represents a task that must be completed by a specified deadline.
